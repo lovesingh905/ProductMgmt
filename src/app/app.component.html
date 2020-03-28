@@ -1,0 +1,61 @@
+<style>
+  h1{
+    text-align: center;
+  }
+
+
+</style>
+
+<h1>Products Details</h1>
+<form [formGroup]="bookform" >
+  
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td>       
+        <input formControlName="name"> 
+      </td>
+    </tr><br>
+    <tr>
+      <td>category:</td>
+      <td><input formControlName="category"> </td>
+    </tr>
+    <tr>
+      <td>Rating:</td>
+      <td> <ngx-star-rating formControlName="rating"  ></ngx-star-rating></td>
+     
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button [disabled]="bookform.invalid" (click)="onformsubmit()">Submit</button>
+      </td>
+    </tr>
+  </table>
+
+</form><br>
+
+
+
+<h3>View </h3>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th >Id</th>
+    <th>Name</th>
+    <th>category</th>    
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let bk of allbooks|async">
+    <td >{{bk.id}}</td>
+    <td>{{bk.name}}</td>
+    <td>{{bk.category}}</td>
+    <td><ngx-star-rating [(ngModel)]="bk.rating"></ngx-star-rating ></td>
+    <td><button class="btn btn-danger" (click)="bookdelete(bk.id)"> Delete</button>
+      <button class="btn btn-success"  style="margin-left: 20px;" (click)="booktoEdit(bk.id)"> Edit</button></td>
+    </tr>
+    </tbody>
+    </table>
+
+
+<router-outlet></router-outlet>
